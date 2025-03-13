@@ -2,8 +2,8 @@
 pageType: home
 
 hero:
-  name: 开发文档
-  text: 用来开发cbms的文档
+  name: 个人文档
+  text: 用来记录个人学习的文档
   # tagline: 开发文档 tagline
   actions:
     - theme: brand
@@ -14,7 +14,7 @@ hero:
       link: https://github.com/nick938/rspress_doc
   image:
     src: /rspress-icon.png
-    alt: 开发文档 Logo
+    alt: 个人文档 Logo
 features:
   - title: Blazing fast build speed
     details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
