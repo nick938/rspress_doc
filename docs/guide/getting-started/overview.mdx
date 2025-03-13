@@ -61,55 +61,6 @@ import { Badge } from "@theme";
 <Badge text="warning" type="warning" />
 <Badge text="danger" type="danger" />
 
-## 踩坑
-
-1. 背景图片的url地址不能有空格(背景图片不显示)
-
-```tsx {5}
-//bad
-backgroundImage: 'url(/public/xjbt/矩形 1974.png)',
-
-//good!
-backgroundImage: 'url(/public/xjbt/矩形1974.png)',
-```
-
-2. 在sys添加新地址时需要在前面加上 **/**
-
-```js title="hello.js" {4}
-//bad
-url: "xjglj/aaa/bbb";
-//good!
-url: "/xjglj/aaa/bbb";
-```
-
-3. Web server failed to start. Port 57880 was already in use. Spring Boot应用端口号被占用
-
-``` shell title="以管理员身份打开cmd"
-# 查找占用端口的应用的pid
-netstat -ano | findstr 57880
-  TCP    127.0.0.1:8002         127.0.0.1:8003         ESTABLISHED     12048
-  TCP    127.0.0.1:8003         127.0.0.1:8002         ESTABLISHED     12048
-# 根据应用的pid停止应用
-  taskkill /F /PID 12048
-```
-
-4. 如果新建的maven/gradle项目下载不来依赖，那就给idea添加代理
-代理地址是127.0.0.1:7890 ，这样在本地开了vpn后就可以正常从maven仓库下载依赖
-
-5. GitHub提交或者拉去代码老是timeout或者连接失败。
-给git添加代理，打开git bash或者PowerShell中，输入
-``` shell
-// 添加代理
-git config --global https.proxy http://127.0.0.1:7890
-
-git config --global https.proxy https://127.0.0.1:7890
-
-// 取消代理
-git config --global --unset http.proxy
-
-git config --global --unset https.proxy
-```
- git config proxy http 127.0.0.1:7890
 
 ## 项目架构
 
