@@ -11,7 +11,7 @@ hero:
       link: /guide/
     - theme: alt
       text: GitHub
-      link: https://github.com/web-infra-dev/rspress
+      link: https://github.com/nick938/rspress_doc
   image:
     src: /rspress-icon.png
     alt: 开发文档 Logo
