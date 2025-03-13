@@ -5,6 +5,7 @@ export default defineConfig({
   root: path.join(__dirname, "docs"),
   title: "开发文档",
   // description: '用来开发cbms的文档',
+  base:'rspress_doc',
   icon: "/rspress-icon.png",
   logo: {
     light: "/rspress-light-logo.png",
