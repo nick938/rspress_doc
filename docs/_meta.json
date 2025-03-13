@@ -1,8 +1,13 @@
 [
   {
-    "text": "文档",
+    "text": "项目文档",
     "link": "/guide/",
     "activeMatch": "/guide/"
+  },
+  {
+    "text": "个人学习",
+    "link": "/learn/",
+    "activeMatch": "/learn/"
   },
   {
     "text": "配置",
