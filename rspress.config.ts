@@ -12,6 +12,7 @@ export default defineConfig({
     dark: "/rspress-dark-logo.png",
   },
   themeConfig: {
+    hideNavbar: "auto",
     socialLinks: [
       {
         icon: "github",
