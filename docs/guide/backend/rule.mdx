@@ -1,0 +1,105 @@
+---
+order: 32
+title: 前后端对接规范
+group:
+  title: 后端集成
+nav:
+  title: 文档
+  path: /docs
+  order: 1
+---
+
+# 前端端对接规范
+
+## 团队协作流程
+### 推荐流程 
+1. **前端**（或**后端**）在 Apifox 上定好`接口文档`初稿。
+2. **前后端** 一起评审、完善`接口文档`，定好`接口用例`。
+3. **前端** 使用系统根据接口文档自动生成的 `Mock 数据`进入开发，无需手写 mock 规则。
+4. **后端** 使用`接口用例` 调试开发中的接口，当所有接口用例调试通过，接口即开发完成。若开发过程中接口有改动，调试的时候会自动更新文档，零成本的保障了接口维护的及时性。
+5. **后端** 每次调试完一个功能就保存为一个`接口用例`。
+6. **测试人员** 直接使用`接口用例`测试接口。
+7. 所有接口开发完成后，**测试人员**（也可以是**后端**）使用集合测试功能进行多接口集成测试，完整测试整个接口调用流程。
+8. **前后端** 都开发完，前端从`Mock 数据`切换到`正式数据`，联调通常都会非常顺利，因为前后端双方都完全遵守了接口定义的规范。
+
+参考文档：[apifox团队协作流程](https://apifox.com/help/best-practices/workflow)
+## @NotBlank String xxx
+
+### 后端写 `@NotBlank String userName`,
+
+```java title="Controller.java"  
+  @RequestMapping("/loginEncrypted")
+    public BaseResult<LoginResult> loginEncrypted(@NotBlank String userName, 
+    @NotBlank String password) throws Exception {}
+```
+### 前端写
+```js 
+const msg = await loginEncrypted3({
+        data: qs.stringify({ ...values, authCodeId, password: encryptPassword(values.password) }),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+      });
+```
+
+## @RequestBody User user
+### 后端写
+```java 
+ @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        Result result = userService.login(user);
+
+        return result;
+    }
+```
+
+### 前端写
+```js
+import { login } from '@/services/sys/sys';
+//method和url在service里有，所以不用写
+const msg = await login({
+        data: {name: 12,password:12},
+      });
+
+// 这是openApi生成的login函数
+export async function login(options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/sys/Account/LoginEncrypted', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+```
+
+## 如何使用DataGrip备份本地数据库到云端数据库
+
+使用mysqldump.exe 工具导出一整个数据库架构 不知道工具在哪个位置的可以用everything搜索
+使用mysql.exe 工具还原一整个数据库架构到云端
+
+不要直接在DataGrip中使用拖拽的复制，因为这样只会复制表结构，没有表主键
+
+也不用在本地数据库结构中导出sql、导出数据，然后再到云服务器数据库中执行sql、和导入数据这样太麻了
+
+## 如何使用sftpgo来创建sftp用户，并且使用FileZilla连接
+1. 打开webAdminClient首先创建一个管理员用户
+2. 使用管理员账户创建一个普通用户
+3. 在sftpgo的docker配置中挂载需要用到sftp的目录到sftpgo的docker中
+4. 在管理员账户中设置普通用户的root directory 为你sftpgo中挂载了服务器目录的目录
+
+举例子：
+
+你需要在云服务器的/opt/www 文件夹使用sftp
+
+那么你需要在sftpgo的docker设置中挂在这个目录 比如 云服务的/opt/www -> docker /opt/www
+
+这样你就可以在普通用户中的root directory 中写/opt/www
+
+最后使用普通用户的账号密码连接 sftp://host:port 来使FileZilla连接。
+
+## 如何使用apifox IDEA插件同步接口到apifox
+1. 在IDEA安装apifox插件
+2. 在apifox的客户端中生成个人令牌
+3. 在IDEA的apifox设置中添加你的个人令牌
+4. 在Controller或者目录中点击upload to apifox。
+这样你的接口就直接同步到apifox，方便进行调试和文档编写。
+
+参考文档：[Apifox IDEA 插件快速上手](https://apifox.com/help/applications-and-plugins/idea/start/)

@@ -1,0 +1,161 @@
+---
+title: 文档总览
+description: 在开始使用之前我们需要对整个项目有一些基本的了解，下面的文档可以让你对脚手架一些基本的认识。
+---
+
+# 文档总览
+
+## 移植进度
+
+1. [ ] 开发子应用方案
+
+- [ ] （**废弃**，太麻烦了）方案一：目前的开发方式是通过代理，把子应用的请求，转发到主应用，也就是子项目和主项目需要公用一套api，
+      因为子应用里有的接口，主应用里必须也有。这样后期维护起来可能有点麻烦，因为有些接口主应用是不需要的。
+- [ ] 方案二：就是跳过登录接口，这个在别人的文章里有，不知道能不能实现
+- [ ] 方案三：自己本地的.env存放token，也就是同时启动主应用和子应用，用主应用登录后获取到的token，
+      复制粘贴到子应用的.env环境变量里，手动更改，这样做的好处是不用同时维护主应用和子应用的两套api（
+      实际上是同一套）
+- [ ] **方案四： 同时启动主应用和子应用，用主应用登录后，把token传给子应用，然后打开子应用端口号来独立开发**
+
+  - (**这个本地在主应用可以，如果独立开发子应用的话就不行线上还没有试过**)如果使用localstorage来共享token的话，线上如果时不同端口号则不能共享localStorage
+  - 通过qiankun的通信来传，好处就是线上也可以用，与本地开发保持了一致性
+
+- [x] **方案五**：每个子模块都有自己的登录页，当单独开发子模块时，直接用子应用的登录功能就行， 这样可以独立开发，
+      不依赖于著应用，并且还有热更新。关于子应用的左侧导航栏问题，需要使用乾坤的`window.__POWERED_BY_QIANKUN__`
+      来区分当前子应用是否运行在主应用的上下文中，但是我在使用umi+qiankun的时候没有这个变量，所以还得
+      考虑怎么解决这个问题，** 实在不行自己创建一个`__POWERED_BY_QIANKUN__`变量传给子应用
+      如果没有从主应用拿到这个变量就说明不是再主应用的上下文中，而是独立的
+
+2.  [ ] 先移植两个子项目过来，在不改动后端的情况下，试试水，就以xjglj和sys
+
+3.  [x] 研究下登录注册方案，获取图片的方案。
+
+4.  [x] qs没有type定义，需要pnpm install --save @types/qs
+
+5.  [ ] 子应用中点击logo跳转到父应用的指定路由，需要使用
+
+6. [ ] 抽象出一个request,目前不好搞，主要有两点：1.request的ts类型不好解决。因为要从@umi/max里面导入
+目前最简单的方法就是复制粘贴，如果要创建一个项目，直接把request的错误处理复制粘贴过去就行了，手动维护
+
+```jsx
+<MicroAppLink isMaster to="/table">
+  <Button>go to master app</Button>
+</MicroAppLink>
+```
+
+## 改进点
+
+1. [x] <Badge text="后端改动" type="warning" />
+       xqbase这个module里面有platform.anonUrls
+       设置了不做权限校验的路径，但由于导出根绝controller导出
+       的OpenAPI大小写不一致，所以得修改一方。先修改本地的
+2. [ ] <Badge
+         text="后端改动"
+         type="warning"
+       /> 写Controller的时候需要遵守restful规范，如果使用
+       `@RequestMapping('/dfas')`的话，导出的openAPI会有所有请求头的方法
+
+import { Badge } from "@theme";
+
+<Badge text="info" type="info" />
+<Badge text="warning" type="warning" />
+<Badge text="danger" type="danger" />
+
+## 踩坑
+
+1. 背景图片的url地址不能有空格(背景图片不显示)
+
+```tsx {5}
+//bad
+backgroundImage: 'url(/public/xjbt/矩形 1974.png)',
+
+//good!
+backgroundImage: 'url(/public/xjbt/矩形1974.png)',
+```
+
+2. 在sys添加新地址时需要在前面加上 **/**
+
+```js title="hello.js" {4}
+//bad
+url: "xjglj/aaa/bbb";
+//good!
+url: "/xjglj/aaa/bbb";
+```
+
+3. Web server failed to start. Port 57880 was already in use. Spring Boot应用端口号被占用
+
+``` shell title="以管理员身份打开cmd"
+# 查找占用端口的应用的pid
+netstat -ano | findstr 57880
+  TCP    127.0.0.1:8002         127.0.0.1:8003         ESTABLISHED     12048
+  TCP    127.0.0.1:8003         127.0.0.1:8002         ESTABLISHED     12048
+# 根据应用的pid停止应用
+  taskkill /F /PID 12048
+```
+
+## 项目架构
+
+这个一个[monorepo](https://www.explainthis.io/zh-hans/swe/why-use-monorepo)（单一仓库管理模式） + [Micro Frontends](https://qiankun.umijs.org/zh/guide)（微前端） 的为前端项目，使用turborepo和qiankun.js这两个库来实现monorepo和微前端
+
+## 模板组件
+
+- [ProLayout - 高级布局](https://procomponents.ant.design/components/layout)
+- [ProForm - 高级表单](https://procomponents.ant.design/components/form)
+- [ProTable - 高级表格](https://procomponents.ant.design/components/table)
+- [ProList - 高级列表](https://procomponents.ant.design/components/list)
+- [ProDescriptions - 高级定义列表](https://procomponents.ant.design/components/descriptions)
+
+## 内置组件
+
+:::未完成
+后续会把组件都添加进来。
+:::
+
+介绍一些基本的内置组件，简单说明组件功能以及如何使用
+
+1. **AutoSelector**: 用来自动选择的输入框组件.
+2. **BasicTable**: 二次封装的 Table 组件.
+3. **BridgeSelector**: 桥梁选择器.
+4. **ChartBridgeBasicStatistics**: 桥梁图表组件.
+
+uni-app 在手机上背景图片不显示
+需求：
+
+在 uniapp 代码中 view 的背景图加载
+
+问题：
+
+直接使用 background-image: url(../../static/icon_top_bg.png); 会导致图片不显示
+
+代码：
+
+```vue
+<template>
+  <view
+    class="index"
+    :style="{
+      backgroundImage: `url(${indexBackgroundImage})`,
+      backgroundSize: 'cover',
+    }"
+  >
+    <!--你的内容-->
+  </view>
+</template>
+<script>
+import indexBackgroundImage from "@/static/img/account_index.jpg";
+export default {
+  data() {
+    return {
+      indexBackgroundImage: indexBackgroundImage,
+    };
+  },
+  methods: {},
+};
+</script>
+<style lang="scss" scoped=""></style>
+```
+
+总结：
+
+直接加载图片可能不会显示，绝对路径和相对路径都会不显示，需要动态加载图片地址，通过 data 赋值
+

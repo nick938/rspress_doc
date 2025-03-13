@@ -1,0 +1,73 @@
+[
+  "index",
+  {
+    "type": "dir",
+    "name": "getting-started",
+    "label": "开始",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "basics-usage",
+    "label": "基础使用",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "new-pages",
+    "label": "页面开发",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "data-manage",
+    "label": "数据管理",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "style-assets",
+    "label": "样式和资源",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "backend",
+    "label": "后端集成",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "build-deploy",
+    "label": "构建和部署",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "quality",
+    "label": "质量",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "advanced-usage",
+    "label": "高级使用",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "other",
+    "label": "其他",
+    "collapsible": true,
+    "collapsed": false
+  }
+]

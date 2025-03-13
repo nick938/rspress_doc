@@ -1,0 +1,86 @@
+---
+title: 开始使用
+description: 本项目基于Ant Design Pro 开发.
+---
+
+# 开始使用
+
+Ant Design Pro 是基于 Ant Design 和 umi 的封装的一整套企业级中后台前端/设计解决方案，致力于在设计
+规范和基础组件的基础上，
+继续向上构建，提炼出典型模板/业务组件/配套设计资源，
+进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。随着『设计者』的不断反馈，
+我们将持续迭代，逐步沉淀和总结出更多设计模式和相应的代码实现，阐述中后台产品模板/组件/业务场景的
+最佳实践，也十分期待你的参与和共建。
+
+## 开发前的输入
+
+Ant Design Pro 作为一个前端脚手架，默认读者已经懂了一些前端的基础知识，并且了解 umi 和 Ant Design, 如果你是纯粹的新手，第一次来跑项目建议读一下 [新手需知](./introduction)。磨刀不误砍柴工，了解一些基础知识可以让学习曲线更加平滑。
+
+## 准备工作
+
+由于国内网络和前端的特殊性，在安装依赖等方面可能会失败或导致无法启动，浪费大量的时间，因此我们推荐如下的技术栈来帮助我们顺畅的开发。
+
+### 包管理器
+
+统一使用pnpm 作为包管理器
+
+```bash
+// 全局安装pnpm
+npm install -g pnpm
+// 设置pnpm 镜像源为淘宝镜像
+pnpm config set registry https://registry.npmmirror.com/
+// 查看
+pnpm config get registry
+```
+
+### Node.js
+
+推荐使用 [Node.js v20LTS](https://nodejs.org/zh-cn) 长期支持版本
+
+umi4支持nodejs 20版本，但是umi3不支持20版本，如需开umi3 项目，需要设置以下npm script,来启动项目
+
+```bash
+"start": "SET NODE_OPTIONS=--openssl-legacy-provider && cross-env COMPILE_ON_DEMAND=none BROWSER=none HOST=0.0.0.0 umi dev",
+```
+
+### 终端
+
+对于Windows系统，推荐使用自带的PowerShell或者cmd
+
+## 初始化
+
+1. 需要在项目根目录下运行pnpm i 安装依赖，
+2. 在项目根目录下运行pnpm dev 即可启动所有项目，如果不想启动全部项目可以去该子应用里运行pnpm 脚本自行启动
+
+## 开发
+
+### start
+
+```bash
+pnpm start
+```
+
+运行这个脚本会启动服务，自动打开默认浏览器展示你的页面。当你重新编辑代码后，页面还会自动刷新。
+
+此处图片先欠着😀
+
+### build
+
+```bash
+pnpm build
+```
+
+运行这个脚本将会编译你的项目，你可以在项目中的 dist 目录中找到编译后的文件用于部署。
+如果你需要部署，可以查阅**部署**（todo：这个地方插个链接）。
+
+### analyze
+
+analyze 脚本做的事情与 build 的相同，但是他会打开一个页面来展示你的依赖信息。如果需要优化性能和包大小，你需要它。
+
+### lint
+
+我们提供了一系列的 lint 脚本，包括 TypeScript，less，css，md 文件。你可以通过这个脚本来查看你的代码有哪些问题。在 commit 中我们自动运行相关 lint。
+
+### lint:fix
+
+与 lint 相同，但是会自动修复 lint 的错误。

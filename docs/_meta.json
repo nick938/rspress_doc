@@ -1,0 +1,12 @@
+[
+  {
+    "text": "文档",
+    "link": "/guide/",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "配置",
+    "link": "/config/config",
+    "activeMatch": "/config/"
+  }
+]

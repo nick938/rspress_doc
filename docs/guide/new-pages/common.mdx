@@ -1,0 +1,99 @@
+---
+title: 常用工具
+---
+
+# 常用工具
+
+前端项目自带了一些常用工具或者内置组件
+
+其中包括：
+1. 一键导出antd table组件为excel文件的WebExportExcel组件
+
+## 表格导出
+
+### 导出excel
+
+使用src/utils/WebExportExcel.js 可以很方便的导出excel。
+
+```jsx | pure title="/src/utils/WebExportExcel.js"
+/**
+ * WebExportExcel组件用于导出Excel表格
+ * 该组件通过接收列配置、请求URL、请求参数、工作表名称等属性，完成数据请求和Excel导出功能
+ * @param {Object} props 组件属性
+ * @param {Array} props.columns 列配置，用于生成Excel的表头
+ * @param {string} props.url 数据请求的URL
+ * @param {Object} props.params 请求参数，默认为空对象
+ * @param {string} props.sheetName 工作表名称
+ * @param {Object} props.style 按钮样式，默认为空对象
+ */
+const WebExportExcel = ({
+  columns,
+  url,
+  params = {},
+  sheetName,
+  style = {},
+}) => {
+  // 此处省略代码
+};
+```
+
+### 导出excel示例
+
+导出excel示例
+
+```jsx | pure title="src/pages/list/TableList.tsx"
+import WebExportExcel from "@/utils/WebExportExcel";
+const Index = () => {
+  <Card
+    title="路线技术等级薄弱点列表"
+    size="small"
+    extra={
+      <Space>
+        {hasPermission("Export") ? (
+          <WebExportExcel
+            params={{ ...filter, rows: total }}
+            url={url}
+            columns={columns}
+            sheetName={"路线技术等级薄弱点列表"}
+          />
+        ) : (
+          ""
+        )}
+      </Space>
+    }
+  ></Card>;
+};
+```
+
+### 注意事项
+import { Badge } from "@theme";
+
+1. <Badge text="render函数必须为箭头函数，否则导出报错, render:()=>{}" type="warning" />
+2. <Badge text="render函数里的参数除形参value，其他参数必须要带window. 否则线上导出报错，因为打包后代码压缩，变量名称会被改变.例如window.areaDict" type="warning" />
+
+
+``` js title="src/exampleForExport.js" {16-20}
+const columns = [
+        {
+            title: '行政区划',
+            dataIndex: 'AreaCode',
+            key: 'AreaCode',
+            align: 'center',
+            width: 200,
+            sorter: true,
+            filterIcon: (filtered) => (
+                <FilterOutlined style={{ color: filtered ? 'red' : undefined }} />
+            ),
+            filters: transformTreeData(areaDict),
+            // 1.render函数必须为箭头函数，否则导出报错
+            // 2.render函数里的参数除形参value，其他参数必须要带window. 否则线上导出报错，因为打包后代码压缩，
+            // 变量名称会被改变
+            render: (value) => {
+                const data = window.transformTreeDataToDict(window.areaDict)
+                const result = value ? data[value] : ''
+                return result
+            },
+        },
+       
+       
+    ]
