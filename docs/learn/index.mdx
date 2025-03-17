@@ -47,3 +47,9 @@ git config --global --unset http.proxy
 
 git config --global --unset https.proxy
 ```
+
+### 使用uniapp 开发微信小程序，运行到微信开发者工具，启动失败
+在uniapp 的manifest.json文件中微信小程序配置中，要修改微信小程序AppID为
+可以用的AppID，（要么问别人要，要么用自己的）不然会启动不了。
+
+由于我的微信AppId没有添加WechatSI插件的权限。所以还得注释掉这个插件
