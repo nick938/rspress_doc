@@ -55,3 +55,6 @@ git config --global --unset https.proxy
 - 由于我的微信AppId没有添加WechatSI插件的权限。所以还得注释掉这个插件
 
 - 还需要在微信开发者工具中的详情勾选上不校验合法域名，在本地开发的时候
+
+### uni-forms组件下使用uni-data-picker时，文字过长超出屏幕的问题
+给uni-data-picker组件包裹一个view style:"width : 500rpx;overflow-x:hidden"。这样就解决文字过长超出的问题
