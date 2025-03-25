@@ -30,6 +30,31 @@ umi: 类型定义可能不够精确
 不关心性能优化的场景
 ```
 
+2. 有个`react-dev-inspector`库,在调试react项目时很好用。使用键盘按下快捷键就可以直接从页面跳转到代码,`放在Layout文件夹下`
+
+``` tsx title="Layout.tsx"
+import { Inspector } from 'react-dev-inspector';
+
+const InspectorWrapper = isDev ? Inspector : React.Fragment;
+
+<InspectorWrapper keys={['control', 'shift', 'command', 'c']} disableLaunchEditor={false}>
+      // 其他组件
+</InspectorWrapper>
+```
+
+3. `react-helmet-async`这个库可以修改一些meta标签，比如title等。
+```tsx title='Layout.tsx'
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
+  <HelmetProvider>
+    <Helmet>
+        <title>面试鸭 - {SLOGAN}</title>
+    </Helmet>
+  </HelmetProvider>
+```
+# 2025年3月25日
+- [ ] 学习redis和Elasticsearch，还有nextjs。
+
 ## 2025年3月24日
 - [x] 继续看mianshiya-public前端和后端源码
 ## 2025年3月23日
