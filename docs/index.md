@@ -2,8 +2,8 @@
 pageType: home
 
 hero:
-  name: 个人文档
-  text: 用来记录个人学习的文档
+  name: 刘易的文档
+  # text: 用来记录个人学习的文档
   # tagline: 开发文档 tagline
   actions:
     - theme: brand
@@ -16,14 +16,17 @@ hero:
     src: /rspress-icon.png
     alt: 个人文档 Logo
 features:
-  - title: Blazing fast build speed
-    details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
+  - title: antd pro 官方文档移植
+    details: 从antd pro 和umi 的官方文档中移植过来的。组合到一起的
     icon: 🏃🏻‍♀️
-  - title: Support for MDX content writing
-    details: MDX is a powerful way to write content, allowing you to use React components in Markdown.
+    link: /guide/index.html
+  - title: 包含自己的学习记录
+    details: 学习笔记
     icon: 📦
-  - title: Built-in full-text search
-    details: Automatically generates a full-text search index for you during construction, providing out-of-the-box full-text search capabilities.
+    link: /learn/index.html
+  - title: 用户中心项目学习记录
+    details: 学习一个简单的antd pro 项目。前后端分离。.
+    link: /learn/user-center.html
     icon: 🎨
   - title: Simpler I18n solution
     details: With the built-in I18n solution, you can easily provide multi-language support for documents or components.
